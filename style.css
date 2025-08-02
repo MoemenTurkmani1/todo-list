@@ -236,7 +236,7 @@ body {
 
 /* Task filter dropdown */
 .filter-tasks {
-    padding: 8px;
+    padding: 12px;
     border-radius: 7px;
     margin-right: 0.5rem;
     border: 1.5px solid gainsboro;
