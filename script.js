@@ -39,7 +39,7 @@ function appendTask(text, index, completed) {
     let taskList = document.getElementById("task-list");
     let taskLi = document.createElement("li");
     taskLi.className = "task-container";
-    taskLi.id = task-${index};
+    taskLi.id = `task-${index}`;
     taskLi.style.transition = "all 0.3s ease";
     taskLi.style.display = "flex";
     taskLi.style.alignItems = "center";
@@ -50,13 +50,13 @@ function appendTask(text, index, completed) {
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = check-${index};
+    checkbox.id = `check-${index}`;
     checkbox.className = "task-checkbox";
     checkbox.checked = completed;
     checkbox.addEventListener("change", () => toggleTaskCompletion(index));
 
     let taskText = document.createElement("span");
-    taskText.id = task-text-${index};
+    taskText.id = `task-text-${index}`;
     taskText.textContent = text;
     taskText.className = "task-label";
     if (completed) {
@@ -65,7 +65,7 @@ function appendTask(text, index, completed) {
     }
 
     let editInput = document.createElement("input");
-    editInput.id = edit-input-${index};
+    editInput.id = `edit-input-${index}`;
     editInput.type = "text";
     editInput.value = text;
     editInput.className = "editInput";
@@ -79,15 +79,15 @@ function appendTask(text, index, completed) {
         marginLeft: "auto",
     });
 
-    let editBtn = createIconButton('<i class="fa-solid fa-pen"></i>', editBtn-${index}, "edit-button", "#f1c40f", () => enterEditMode(index));
+    let editBtn = createIconButton('<i class="fa-solid fa-pen"></i>', `editBtn-${index}`, "edit-button", "#f1c40f", () => enterEditMode(index));
     editBtn.className = "editBtn";
     // Hide edit button if task is completed
     if (completed) {
         editBtn.style.display = 'none';
     }
-    let saveBtn = createIconButton("Save", saveBtn-${index}, "save-button", "#2ecc71", () => saveTask(index), true);
-    let cancelBtn = createIconButton("Cancel", cancelBtn-${index}, "cancel-button", "#95a5a6", () => cancelEdit(index), true);
-    let deleteBtn = createIconButton("✖", deleteBtn-${index}, "delete-button", "#e74c3c", () => removeTask(index));
+    let saveBtn = createIconButton("Save", `saveBtn-${index}`, "save-button", "#2ecc71", () => saveTask(index), true);
+    let cancelBtn = createIconButton("Cancel", `cancelBtn-${index}`, "cancel-button", "#95a5a6", () => cancelEdit(index), true);
+    let deleteBtn = createIconButton("✖", `deleteBtn-${index}`, "delete-button", "#e74c3c", () => removeTask(index));
 
     btnContainer.append(editBtn, saveBtn, cancelBtn, deleteBtn);
     taskLi.append(checkbox, taskText, editInput, btnContainer);
@@ -104,13 +104,13 @@ function toggleTaskCompletion(index) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     
     // Get the edit button and toggle its visibility
-    const editBtn = document.getElementById(editBtn-${index});
+    const editBtn = document.getElementById(`editBtn-${index}`);
     if (editBtn) {
         editBtn.style.display = isCompleted ? 'none' : 'inline-flex';
     }
     
     // Update the task text style
-    const taskText = document.getElementById(task-text-${index});
+    const taskText = document.getElementById(`task-text-${index}`);
     if (taskText) {
         taskText.style.textDecoration = isCompleted ? 'line-through' : 'none';
         taskText.style.color = isCompleted ? '#aaa' : 'inherit';
@@ -124,14 +124,14 @@ function toggleTaskCompletion(index) {
 
 // Enter edit mode for a task
 function enterEditMode(index) {
-    const taskLi = document.getElementById(task-${index});
-    const taskText = document.getElementById(task-text-${index});
-    const editInput = document.getElementById(edit-input-${index});
-    const editBtn = document.getElementById(editBtn-${index});
-    const saveBtn = document.getElementById(saveBtn-${index});
-    const cancelBtn = document.getElementById(cancelBtn-${index});
-    const checkbox = document.getElementById(check-${index});
-    const deleteBtn = document.getElementById(deleteBtn-${index});
+    const taskLi = document.getElementById(`task-${index}`);
+    const taskText = document.getElementById(`task-text-${index}`);
+    const editInput = document.getElementById(`edit-input-${index}`);
+    const editBtn = document.getElementById(`editBtn-${index}`);
+    const saveBtn = document.getElementById(`saveBtn-${index}`);
+    const cancelBtn = document.getElementById(`cancelBtn-${index}`);
+    const checkbox = document.getElementById(`check-${index}`);
+    const deleteBtn = document.getElementById(`deleteBtn-${index}`);
     
     // Add editing class to the task container
     taskLi.classList.add('editing');
@@ -151,7 +151,7 @@ function enterEditMode(index) {
 
 // Save the edited task
 function saveTask(index) {
-    let editInput = document.getElementById(edit-input-${index});
+    let editInput = document.getElementById(`edit-input-${index}`);
     let tasks = getTasksFromLocalStorage();
     
     // If input is empty, remove the task
@@ -168,14 +168,14 @@ function saveTask(index) {
 
 // Cancel the edit mode
 function cancelEdit(index) {
-    const taskLi = document.getElementById(task-${index});
-    const taskText = document.getElementById(task-text-${index});
-    const editInput = document.getElementById(edit-input-${index});
-    const editBtn = document.getElementById(editBtn-${index});
-    const saveBtn = document.getElementById(saveBtn-${index});
-    const cancelBtn = document.getElementById(cancelBtn-${index});
-    const checkbox = document.getElementById(check-${index});
-    const deleteBtn = document.getElementById(deleteBtn-${index});
+    const taskLi = document.getElementById(`task-${index}`);
+    const taskText = document.getElementById(`task-text-${index}`);
+    const editInput = document.getElementById(`edit-input-${index}`);
+    const editBtn = document.getElementById(`editBtn-${index}`);
+    const saveBtn = document.getElementById(`saveBtn-${index}`);
+    const cancelBtn = document.getElementById(`cancelBtn-${index}`);
+    const checkbox = document.getElementById(`check-${index}`);
+    const deleteBtn = document.getElementById(`deleteBtn-${index}`);
     
     // Reset the input value to the current task text
     editInput.value = taskText.textContent;
@@ -205,7 +205,7 @@ function createIconButton(icon, id, className, color, onClick, hidden = false) {
     let button = document.createElement("button");
     button.id = id;
     button.classList.add(className);
-    button.innerHTML = <span style="font-size:12px;">${icon}</span>;
+    button.innerHTML = `<span style="font-size:12px;">${icon}</span>`;
     Object.assign(button.style, {
         borderRadius: "5px",
         fontSize: "12px",
@@ -249,7 +249,7 @@ function updateTaskCount() {
         taskCount.style.display = "none"; 
     } else {
         taskCount.style.display = "inline";
-        taskCount.innerHTML = ${activeTasks} item${activeTasks !== 1 ? 's' : ''} left; 
+        taskCount.innerHTML = `${activeTasks} item${activeTasks !== 1 ? 's' : ''} left`; 
     }
 }
 
@@ -299,7 +299,7 @@ function filterTasks() {
     });
     toggleEmptyMessage();
     document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-    document.querySelector(.filter-btn[data-filter="${filterValue}"]).classList.add("active");
+    document.querySelector(`.filter-btn[data-filter="${filterValue}"]`).classList.add("active");
 }
 
 
@@ -330,7 +330,7 @@ function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
     let themeToggle = document.getElementById("theme-toggle");
     if (document.body.classList.contains("dark-mode")) {
-        themeToggle.textContent = "☀";
+        themeToggle.textContent = "☀️";
         themeToggle.style.backgroundColor = "gainsboro"
     } else {
         themeToggle.textContent = "🌙";
@@ -339,3 +339,4 @@ function toggleDarkMode() {
 }
 
 document.getElementById("theme-toggle").addEventListener("click", toggleDarkMode);
+
