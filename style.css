@@ -1,241 +1,375 @@
 /* Reset default margin and padding for all elements */
 *{
-  padding: 0;
-  margin: 0;
-  transition: 0.4s;  /* Smooth transition for changes */
+    padding: 0;
+    margin: 0;
+    transition: 0.4s;  /* Smooth transition for changes */
 }
 
 /* General styling for the page */
 body {
-  font-family: sans-serif;
-  background: linear-gradient(to right, #677ce7, #724da4); /* Gradient background */
-  align-items: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
+    font-family: sans-serif;
+    background: linear-gradient(to right, #677ce7, #724da4); /* Gradient background */
+    align-items: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 /* Application title */
 .title {
-  color: #2980b9;
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+    color: #2980b9;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
 /* Title icon styling */
 .title::before {
-  content: "";
-  width: 16px;
-  height: 8px;
-  border-left: 4px solid #2980b9;
-  border-bottom: 4px solid #2980b9;
-  transform: rotate(-45deg);
+    content: "";
+    width: 16px;
+    height: 8px;
+    border-left: 4px solid #2980b9;
+    border-bottom: 4px solid #2980b9;
+    transform: rotate(-45deg);
 }
 
 /* Subtitle styling */
 .subtitle {
-  display: flex;
-  justify-content: center;
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 1.5rem;
-  margin-top: 0.2rem;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 1.5rem;
+    margin-top: 0.2rem;
 }
 
 /* Main container for the task manager */
 .container {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow effect */
-  padding: 1em;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+    padding: 1em;
+    width: 500px; /* Fixed width */
+    margin: 0 auto; /* Center the container */
+    box-sizing: border-box;
+}
+
+/* Search and filter container */
+.task-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1em;
+    align-items: center;
 }
 
 /* Search bar container */
 .input-container {
-  border-radius: 5px;
+    border-radius: 5px;
+    flex: 1; /* Take remaining space */
 }
 
 /* Search icon positioning */
 .icon {
-  position: absolute;
-  transform: translateY(35%);
-  margin-left: 0.5rem;
+    position: absolute;
+    transform: translateY(35%);
+    margin-left: 0.5rem;
 }
 
 /* Search input field */
 .search-input {
-  padding-left: 2rem;
-  height: 30px;
-  border-radius: 7px;
-  outline: none;
-  border: solid 1.5px gainsboro;
+    padding-left: 2rem;
+    height: 30px;
+    width: 100%; /* Make input take full width of container */
+    max-width: 100%; /* Ensure it doesn't overflow */
+    border-radius: 7px;
+    outline: none;
+    border: solid 1.5px gainsboro;
+    box-sizing: border-box; /* Include padding in width calculation */
+    font-size: 14px; /* Base font size */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .task-controls {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .input-container,
+    .filter-tasks {
+        width: 100%;
+    }
+    
+    .clear-btn {
+        align-self: flex-start; /* Align to start instead of stretching */
+        padding: 0 15px; /* Restore original padding */
+    }
+    
+    .search-input {
+        font-size: 16px; /* Larger font for mobile */
+        height: 40px; /* Larger touch target */
+        padding-left: 2.5rem; /* More padding for better spacing */
+    }
+    
+    .icon {
+        transform: translateY(50%); /* Adjust icon position */
+        margin-left: 0.8rem; /* More spacing for icon */
+    }
+}
+
+/* Make sure the container doesn't get too wide on large screens */
+@media (min-width: 601px) and (max-width: 768px) {
+    .container {
+        width: 90%;
+        max-width: 500px;
+    }
+}
+
+/* Filter dropdown */
+.filter-tasks {
+    height: 30px;
+    border-radius: 7px;
+    border: solid 1.5px gainsboro;
+    padding: 0 10px;
+    background: white;
+    cursor: pointer;
+}
+
+/* Clear button */
+.clear-btn {
+    height: 30px;
+    border-radius: 7px;
+    border: solid 1.5px gainsboro;
+    padding: 0 15px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+/* Clear button hover effect */
+.clear-btn:hover {
+    background-color: #f8f9fa;
+}
+
+/* Mobile styles for clear button */
+@media (max-width: 600px) {
+    .clear-btn {
+        width: auto;
+        padding: 0 12px;
+        height: 40px;
+    }
+    
+    .clear-btn span {
+        display: none; /* Hide text on mobile */
+    }
+    
+    .clear-btn i {
+        font-size: 1.2em; /* Slightly larger icon on mobile */
+    }
 }
 
 /* Dropdown focus effect */
 #status-select:focus {
-  outline: none;
-  border: #2980b9 1.5px solid;
-  transition: 0.3s;
-  box-shadow: 0 0 3px rgba(41, 128, 185, 0.5);
+    outline: none;
+    border: #2980b9 1.5px solid;
+    transition: 0.3s;
+    box-shadow: 0 0 3px rgba(41, 128, 185, 0.5);
 }
 
 /* Input fields lose focus effect */
 .search-input:not(:focus),
 .new-task:not(:focus) {
-  transition: all 0.3s ease-out;
-  box-shadow: none;
+    transition: all 0.3s ease-out;
+    box-shadow: none;
+}
+
+/* Edit mode styles */
+.editInput {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 0.5rem;
+    font-size: 14px;
+    min-width: 0; /* Allows the input to shrink below its default minimum width */
+}
+
+.task-container.editing {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.task-container.editing .task-label {
+    display: none;
+}
+
+.task-container.editing .editInput {
+    display: block !important;
+    flex: 1 1 100%;
+    margin: 0.5rem 0;
+}
+
+.button-container {
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 /* Search input and new task input focus effect */
 #task-select:focus, .search-input:focus,
 #new-task:focus {
-  border-color: #2980b9;
-  box-shadow: 0 0 8px rgba(41, 128, 185, 0.5);
+    border-color: #2980b9;
+    box-shadow: 0 0 8px rgba(41, 128, 185, 0.5);
 }
 
 /* Task filter dropdown */
 .filter-tasks {
-  padding: 8px;
-  border-radius: 7px;
-  margin-right: 0.5rem;
-  border: 1.5px solid gainsboro;
+    padding: 8px;
+    border-radius: 7px;
+    margin-right: 0.5rem;
+    border: 1.5px solid gainsboro;
 }  
 
 /* Clear all tasks button */
 .clear-btn {
-  padding: 8px 1em;
-  background: red;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.7em;
+    padding: 8px 1em;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7em;
 }
 
 /* Clear button hover effect */
 .clear-btn:hover {
-  background-color: #ff4747; /* Lighter red on hover */
-  transform: scale(1.03); /* Slightly enlarge the button */
-  cursor: pointer; /* Show pointer cursor */
-  transition: background-color 0.3s, transform 0.2s ease-in; /* Smooth transition */
-  color: #ffffff;
+    background-color: #ff4747; /* Lighter red on hover */
+    transform: scale(1.03); /* Slightly enlarge the button */
+    cursor: pointer; /* Show pointer cursor */
+    transition: background-color 0.3s, transform 0.2s ease-in; /* Smooth transition */
+    color: #ffffff;
 }
 
 /* Reset transition when not hovered */
 .clear-btn:not(:hover) {
-  transition: background-color 0.3s, transform 0.2s ease-out;
+    transition: background-color 0.3s, transform 0.2s ease-out;
 }
 
 /* Container for adding a new task */
 .add-container {
-  display: flex;
-  margin-top: 1em;
+    display: flex;
+    margin-top: 1em;
 }
 
 /* Input field for new task */
 .new-task {
-  flex: 1;
-  padding: 10px;
-  margin-right: 0.5rem;
-  border: 1.5px solid gainsboro;
-  border-radius: 7px;
-  outline: none;
+    flex: 1;
+    padding: 10px;
+    margin-right: 0.5rem;
+    border: 1.5px solid gainsboro;
+    border-radius: 7px;
+    outline: none;
 }
 
 /* Add Task button */
 #add-task {
-  padding: 0.5em 1em;
-  background: #90ee90;
-  color: white;
-  border: none;
-  border-radius: 5px;
+    padding: 0.5em 1em;
+    background: #90ee90;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
 /* Empty task message styling */
 .empty-tasks {
-  display: flex;
-  background: rgba(200, 200, 200, 0.2);
-  border-radius: 10px;
-  margin-top: 1em;
-  padding: 4em 1rem;
+    display: flex;
+    background: rgba(200, 200, 200, 0.2);
+    border-radius: 10px;
+    margin-top: 1em;
+    padding: 4em 1rem;
 }
 
 /* Empty task icon styling */
 .empty-icon {
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.5em;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5em;
 }
 
 /* Empty task message text */
 .empty-text {
-  font-size: 12px;
-  color: #666;
-  display: flex;
-  justify-content: center;
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    justify-content: center;
 }
 
 /* Task list container */
 #task-list {
-  background-color: ghostwhite;
-  margin-top: 1em;
-  border-radius: 6px;
-  padding: 0.5em;
-  max-height: 160px;/* Set a max height for scrolling */
-  overflow-y: auto; /* Enable vertical scrolling */
-  display: flex;
-  flex-direction: column;
-  min-height: 150px;
+    background-color: ghostwhite;
+    margin-top: 1em;
+    border-radius: 6px;
+    padding: 0.5em;
+    max-height: 160px;/* Set a max height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
 }
-#task-list li{
-  
-}
+
 
 
 /* Task label spacing */
 .task-label {
-  padding-left: 0.5em;
+    padding-left: 0.5em;
 }
 
 /* Edit input styling */
 .editInput {
-  padding: 0.5em 15px !important;
-  font-size: medium;
-  border-radius: 6px !important;
-  border: #2980b9 1.5px solid;
-  box-shadow: 0 0 1px #2980b9;
-  margin-right: 1em;
-  width: 100%;
+    padding: 0.5em 15px !important;
+    font-size: medium;
+    border-radius: 6px !important;
+    border: #2980b9 1.5px solid;
+    box-shadow: 0 0 1px #2980b9;
+    margin-right: 1em;
+    width: 100%;
 }
 
 
 /* Edit input focus effect */
 .editInput:focus,
 .editInput:active {
-  border: solid 1.5px #2980b9;
-  outline: none;
+    border: solid 1.5px #2980b9;
+    outline: none;
 }
 
 /* Buttons for editing and deleting tasks */
 .editBtn,
 .delete-button {
-  padding: 0.3em 0.8em;
+    padding: 0.3em 0.8em;
 }
 
 /* Save button */
 .save-button {
-  padding: 0.5em;
+    padding: 0.5em;
 
 }
 
 /* Cancel button */
 .cancel-button {
-  padding: 0.5em;
+    padding: 0.5em;
 }
 
 /* Hover effect for task buttons */
@@ -243,8 +377,8 @@ body {
 .save-button:hover,
 .editBtn:hover,
 .delete-button:hover {
-  transform: scale(1.03);
-  transition: transform 0.4s;
+    transform: scale(1.03);
+    transition: transform 0.4s;
 }
 
 /* Reset transition when not hovered */
@@ -252,168 +386,189 @@ body {
 .save-button:not(:hover),
 .editBtn:not(:hover),
 .delete-button:not(:hover) {
-  transition: transform 0.3s;
+    transition: transform 0.3s;
 }
 
 /* Filter buttons container */
 .filter-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 0;
 }
 
 /* Individual filter button */
 .filter-btn {
-  background-color: #ffffff;
-  border: none;
-  color: #777;
-  padding: 5px 15px;
-  border-radius: 5px;
-  transition: background 0.5s, color 0.4s;
+    background-color: #ffffff;
+    border: none;
+    color: #777;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background 0.5s, color 0.4s;
 }
 
 /* Active filter button */
 .filter-btn.active,
 .filter-btn:focus {
-  background: #007bff;
-  border: solid 1px #007bff;
-  color: white;
+    background: #007bff;
+    border: solid 1px #007bff;
+    color: white;
 }
 
 /* Smooth transition when filter button is not focused */
 .filter-btn:not(:focus) {
-  transition: background 0.5s border 0.8s ease-out;
+    transition: background 0.5s border 0.8s ease-out;
 }
 
 /* Horizontal separator */
 #task-hr {
-  background-color: #999;
-  margin: 1em 0;
+    background-color: #999;
+    margin: 1em 0;
 }
 
 /* Footer section */
 .footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Task count display */
 #task-count {
-  color: #777;
-  font-size: 0.9em;
+    color: #777;
+    font-size: 0.9em;
 }
-
 /* Add animation for newly added tasks */
 .task-container {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .task-container.animate {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
-
-
 
 /* Responsive styling for all elements and their children */
 @media (max-width: 768px) {
-  .input-container,.body,
-   .filter-tasks,
-   .task-footer,
-   #task-hr{
-      display: flex;
-      flex-direction:column;
-      width: 100%;
-      margin-top: 1em;
-  }
-  .add-container{
-      display: flex;
-      flex-direction: column;
-  }
-  .clear-btn{
-      width: 100%;
-      margin-top: 1em
-  }
-  .add-task{
-      margin-top: 1em;
-      height: 2.5em;
-  }
-  .new-task{
-      margin:0;
-  }
-#task-count {
-  width: 100%;
-  margin-bottom: 1em;
-  font-size: small;
-}
- .footer-content{
-  display: flex;
-  flex-direction: column;
- }
- 
-.editInput{
-  height: 1rem
-}
-
-  
+    .input-container,.body,
+     .filter-tasks,
+     .task-footer,
+     #task-hr{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1em;
+    }
+    .add-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .clear-btn{
+        width: 100%;
+        margin-top: 1em
+    }
+    .add-task{
+        margin-top: 1em;
+        height: 2.5em;
+    }
+    .new-task{
+        margin: 0;
+    }
+    #task-count {
+        width: 100%;
+        margin-bottom: 1em;
+        font-size: small;
+    }
+    .footer-content{
+        display: flex;
+        flex-direction: column;
+    }
+    /* Edit mode styles for mobile */
+    .editInput {
+        height: 2.5rem;
+        margin: 0.5em 0;
+        width: 100%;
+        padding: 0.5em;
+    }
+    
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
+        margin-top: 0.5em;
+        width: 100%;
+    }
+    
+    .save-button,
+    .cancel-button {
+        flex: 1;
+        min-width: 45%;
+        margin: 0;
+        padding: 0.5em;
+    }
+    
+    .task-container[data-editing="true"] {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .task-container[data-editing="true"] .button-container {
+        justify-content: space-between;
+    }
 }   
-
 
 /* Theme toggle button styling */
 .theme-toggle {
-  position: fixed;
-  top: 0.15rem;
-  right: 1rem;
-  z-index: 1000; /* Ensures it stays on top */
-  background: #555;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: #555;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
 }
 
 .theme-toggle:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .theme-toggle:focus {
-  outline: none;
-  box-shadow: 0 0 8px rgba(75, 255, 167, 0.5);
+    outline: none;
+    box-shadow: 0 0 8px rgba(75, 255, 167, 0.5);
 }
 
 /* Dark mode styling */
 
 body.dark-mode .title::before {
-  border-left: 4px solid #4bffa7;
-  border-bottom: 4px solid #4bffa7;
+    border-left: 4px solid #4bffa7;
+    border-bottom: 4px solid #4bffa7;
 }
 body.dark-mode {
-  background: linear-gradient(to right, #2c3e50, #4bffa7);
-  color: #fff;
+    background: linear-gradient(to right, #2c3e50, #4bffa7);
+    color: #fff;
 
 }
 
 body.dark-mode .title {
-  color: #4bffa7;
+    color: #4bffa7;
 }
 
 body.dark-mode .subtitle {
-  color: #4bffa7;
+    color: #4bffa7;
 }
 
 body.dark-mode .container {
-  background: #333;
-  color: #fff;
+    background: #333;
+    color: #fff;
 }
 
 body.dark-mode .search-input,
@@ -425,9 +580,9 @@ body.dark-mode .editInput,
 body.dark-mode .save-button,
 body.dark-mode .cancel-button,
 body.dark-mode .filter-btn {
-  background: #444;
-  color: #fff;
-  border: 1.5px solid #4bffa7;
+    background: #444;
+    color: #fff;
+    border: 1.5px solid #4bffa7;
 }
 
 body.dark-mode .search-input:focus,
@@ -442,8 +597,8 @@ body.dark-mode .editInput:focus,
 body.dark-mode .save-button:focus,
 body.dark-mode .cancel-button:focus,
 body.dark-mode .filter-btn:focus {
-  border: 1px solid  #4bffa7;
-  box-shadow: 0 0 8px rgba(75, 255, 167, 0.5);
+    border: 1px solid  #4bffa7;
+    box-shadow: 0 0 8px rgba(75, 255, 167, 0.5);
 }
 
 
@@ -454,28 +609,28 @@ body.dark-mode .delete-button:hover,
 body.dark-mode .save-button:hover,
 body.dark-mode .cancel-button:hover,
 body.dark-mode .filter-btn:hover {
-  background-color: #4bffa7;
-  color: #fff;
-  transform: scale(1.03);
-  transition: background-color 0.3s, transform 0.2s ease-in;
+    background-color: #4bffa7;
+    color: #fff;
+    transform: scale(1.03);
+    transition: background-color 0.3s, transform 0.2s ease-in;
 }
 
 body.dark-mode .empty-tasks {
-  background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .empty-text {
-  color: #4bffa7;
+    color: #4bffa7;
 }
 
 body.dark-mode #task-list {
-  background-color: #444;
+    background-color: #444;
 }
 
 body.dark-mode #task-hr {
-  background-color: #4bffa7;
+    background-color: #4bffa7;
 }
 
 body.dark-mode #task-count {
-  color: #4bffa7;
+    color: #4bffa7;
 }
