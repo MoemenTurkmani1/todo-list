@@ -94,39 +94,109 @@ body {
 }
 
 /* Responsive adjustments */
-@media (max-width: 600px) {
-    .task-controls {
-        flex-direction: column;
-        gap: 8px;
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem auto;
     }
     
-    .input-container,
-    .filter-tasks {
+    .task-controls {
+        flex-direction: column;
+        gap: 12px;
         width: 100%;
     }
     
+    .input-container,
+    .filter-tasks,
     .clear-btn {
-        align-self: flex-start; /* Align to start instead of stretching */
-        padding: 0 15px; /* Restore original padding */
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
     }
     
     .search-input {
-        font-size: 16px; /* Larger font for mobile */
-        height: 40px; /* Larger touch target */
-        padding-left: 2.5rem; /* More padding for better spacing */
+        font-size: 16px;
+        height: 48px;
+        padding-left: 2.8rem;
     }
     
     .icon {
-        transform: translateY(50%); /* Adjust icon position */
-        margin-left: 0.8rem; /* More spacing for icon */
+        transform: translateY(50%);
+        margin-left: 1rem;
+    }
+    
+    .add-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    #add-task {
+        width: 100%;
+        height: 48px;
+    }
+    
+    .new-task {
+        margin-right: 0;
+        height: 48px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    #task-list {
+        min-height: 200px;
+        max-height: 300px;
+    }
+    
+    .task-container {
+        padding: 12px;
+    }
+    
+    .button-container {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .filter-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .filter-buttons button {
+        flex: 1 1 calc(50% - 4px);
+        min-width: 120px;
     }
 }
 
 /* Make sure the container doesn't get too wide on large screens */
-@media (min-width: 601px) and (max-width: 768px) {
+@media (min-width: 769px) and (max-width: 1024px) {
     .container {
-        width: 90%;
-        max-width: 500px;
+        width: 80%;
+        max-width: 700px;
+        padding: 2rem;
+    }
+    
+    #task-list {
+        min-height: 250px;
+        max-height: 350px;
+    }
+    
+    .task-controls {
+        gap: 15px;
+    }
+    
+    .input-container {
+        flex: 2;
+    }
+    
+    .filter-tasks {
+        flex: 1;
+    }
+    
+    .clear-btn {
+        flex: 0.8;
     }
 }
 
@@ -236,7 +306,7 @@ body {
 
 /* Task filter dropdown */
 .filter-tasks {
-    padding: 12px;
+    padding: 5px;
     border-radius: 7px;
     margin-right: 0.5rem;
     border: 1.5px solid gainsboro;
@@ -269,7 +339,9 @@ body {
 /* Container for adding a new task */
 .add-container {
     display: flex;
-    margin-top: 1em;
+    margin: 1em 0;
+    gap: 10px;
+    width: 100%;
 }
 
 /* Input field for new task */
@@ -319,14 +391,16 @@ body {
 /* Task list container */
 #task-list {
     background-color: ghostwhite;
-    margin-top: 1em;
-    border-radius: 6px;
-    padding: 0.5em;
-    max-height: 160px;/* Set a max height for scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
+    margin: 1em 0;
+    border-radius: 8px;
+    padding: 1em;
+    max-height: 300px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    min-height: 150px;
+    min-height: 200px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    gap: 12px;
 }
 
 
